@@ -4,20 +4,27 @@ services:
     security_opt:
       # disable selinux labeling
       - label=disable
+    user: "1000:1000"
 
   caddy:
-    image: caddy:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.caddy
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./${CADDYFILE:-Caddyfile}:/etc/caddy/Caddyfile:ro,z
       - caddy_data:/data
       - caddy_config:/config
+      - caddy_logs:/var/log/caddy
     environment:
       - DOMAIN=${DOMAIN:-localhost}
       - ACME_CA=${ACME_CA:-}
+      - CACHE_TTL=${CACHE_TTL:-}
+      - CACHE_STALE=${CACHE_STALE:-}
 
 volumes:
   caddy_data:
   caddy_config:
+  caddy_logs:

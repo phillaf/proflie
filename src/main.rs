@@ -4,11 +4,11 @@ use axum::{response::Html, routing::get, Router};
 async fn main() {
     let app = Router::new().route("/", get(handler));
 
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:80")
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000")
         .await
         .unwrap();
     
-    println!("Server running on http://0.0.0.0:80");
+    println!("Server running on http://0.0.0.0:3000");
     
     axum::serve(listener, app).await.unwrap();
 }

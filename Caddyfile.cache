@@ -2,11 +2,17 @@
     # Use staging endpoint for testing (to avoid rate limits)
     acme_ca {$ACME_CA:}
     
-    # Disable automatic HTTPS for local development
-    auto_https off
+    # Order is important - cache must come before reverse_proxy
+    order cache before reverse_proxy
 }
 
-http://{$DOMAIN:localhost} {
+{$DOMAIN:localhost} {
+    # Enable caching
+    cache {
+        ttl {$CACHE_TTL:1m}
+        stale {$CACHE_STALE:24h}
+    }
+    
     reverse_proxy web:3000
     
     # Nginx-style access logs

@@ -5,6 +5,13 @@ RUN cargo build --release
 
 FROM debian:bookworm-slim
 WORKDIR /app
-COPY --from=builder /app/target/release/proflie-rust .
-EXPOSE 80 
+
+# Create non-root user
+RUN useradd -m -u 1000 appuser && \
+    chown -R appuser:appuser /app
+
+COPY --from=builder --chown=appuser:appuser /app/target/release/proflie-rust .
+
+USER appuser
+EXPOSE 3000 
 CMD ["./proflie-rust"]
