@@ -1,0 +1,8 @@
+services:
+  web:
+    build: .
+    ports:
+      - "80:80"
+    security_opt:
+      # disable selinux labeling
+      - label=disable
