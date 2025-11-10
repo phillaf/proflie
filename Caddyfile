@@ -1,0 +1,12 @@
+{
+    # Use staging endpoint for testing (to avoid rate limits)
+    acme_ca {$ACME_CA:}
+}
+
+{$DOMAIN:localhost} {
+    reverse_proxy web:80
+    log {
+        output stdout
+        format json
+    }
+}
