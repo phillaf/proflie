@@ -5,4 +5,7 @@ RUN xcaddy build \
 
 FROM caddy:latest
 
+ARG CADDYFILE=Caddyfile.cache
+
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
+COPY ${CADDYFILE} /etc/caddy/Caddyfile

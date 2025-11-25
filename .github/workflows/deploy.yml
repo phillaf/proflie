@@ -22,10 +22,12 @@ jobs:
         docker build -t phillaf/proflie-web:latest -f Dockerfile .
         docker push phillaf/proflie-web:latest
 
-    - name: Build and push caddy image
+    - name: Build and push caddy images
       run: |
-        docker build -t phillaf/proflie-caddy:latest -f Dockerfile.caddy .
-        docker push phillaf/proflie-caddy:latest
+        docker build -t phillaf/proflie-caddy:cache --target cache caddy/
+        docker push phillaf/proflie-caddy:cache
+        docker build -t phillaf/proflie-caddy:nocache --target nocache caddy/
+        docker push phillaf/proflie-caddy:nocache
 
   deploy:
     runs-on: ubuntu-latest

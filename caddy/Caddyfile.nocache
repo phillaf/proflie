@@ -1,7 +1,4 @@
 {
-    # Use staging endpoint for testing (to avoid rate limits)
-    acme_ca {$ACME_CA:}
-    
     # Disable automatic HTTPS for local development
     auto_https off
 }

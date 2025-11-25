@@ -1,7 +1,4 @@
 {
-    # Use staging endpoint for testing (to avoid rate limits)
-    acme_ca {$ACME_CA:}
-    
     # Order is important - cache must come before reverse_proxy
     order cache before reverse_proxy
 }

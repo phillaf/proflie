@@ -8,13 +8,12 @@ services:
 
   caddy:
     build:
-      context: .
-      dockerfile: Dockerfile.caddy
+      context: caddy
+      target: nocache
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - ./${CADDYFILE:-Caddyfile}:/etc/caddy/Caddyfile:ro,z
       - caddy_data:/data
       - caddy_config:/config
       - caddy_logs:/var/log/caddy
